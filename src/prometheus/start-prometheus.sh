@@ -2,7 +2,8 @@
 
 sed -i "s/{{USERNAME}}/${USERNAME}/g" /etc/prometheus/prometheus.yml
 sed -i "s/{{PASSWORD}}/${PASSWORD}/g" /etc/prometheus/prometheus.yml
-sed -i "s/{{GATEWAY_HOST}}/${GATEWAY_HOST}/g" /etc/prometheus/prometheus.yml
+the_hosts=${PROMETHEUS_HOSTS//,/\",\"}
+sed -i "s/{{PROMETHEUS_HOSTS}}/${the_hosts}/g" /etc/prometheus/prometheus.yml
 
 /bin/prometheus \
     --config.file=/etc/prometheus/prometheus.yml \

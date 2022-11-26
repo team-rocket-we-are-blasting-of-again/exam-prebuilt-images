@@ -11,7 +11,7 @@ scrape_configs:
     metrics_path: "/actuator/prometheus"
     scrape_interval: 5s
     static_configs:
-      - targets: ["{{GATEWAY_HOST}}"]
+      - targets: ["{{PROMETHEUS_HOSTS}}"]
     basic_auth:
       username: "{{USERNAME}}"
       password: "{{PASSWORD}}"
