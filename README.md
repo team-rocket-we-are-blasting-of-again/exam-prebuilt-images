@@ -1,4 +1,4 @@
-# Microservice monitoring
+# Microservice Monitoring
 
 This repository contains the images required for monitoring specific services. Each service has to emit prometheus data, which these containers would then listen on.
 
