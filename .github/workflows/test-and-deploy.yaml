@@ -1,4 +1,4 @@
-name: Test and Deploy
+name: Deploy images
 
 on: [push, pull_request]
 
@@ -6,58 +6,35 @@ env:
   DOCKER_USERNAME: tobiaszimmer
 
 jobs:
-  test-and-deploy:
-    name: Test and Deploy
+  deploy-images:
+    name: Deploy images
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup env
-        uses: ./.github/actions/setup-env
-
-      - name: Run unit tests
-        run: mvn test
-
-      - name: Run integration tests
-        run: mvn verify
-
-      - name: Run mutation tests
-        run: mvn test-compile org.pitest:pitest-maven:mutationCoverage
-
-      - name: Package
-        run: mvn package -Dmaven.test.skip=true
-
       - name: Setup variables
+        shell: bash
         run: |
-          sudo apt install libxml-xpath-perl -y
-          get_xpath_value() {
-            xml=$1
-            path=$2
-            if [ -f $xml ]; then
-              value=$(xpath -e $path $xml | perl -pe 's/^.+?\>//; s/\<.+?$//;' | awk '{print tolower($0)}')
-              echo -n $value
-            else
-              echo 'Invalid xml file "$xml"!'
-              exit 1;
-            fi
-          }
-          pom_xml='pom.xml'
-          version=$(get_xpath_value $pom_xml 'project/version')
           lower_case_image=$(echo $IMAGE_NAME | awk '{print tolower($0)}')
-          echo "project_version=$version" >> $GITHUB_ENV
           echo "lower_case_image=$lower_case_image" >> $GITHUB_ENV
-          echo "branch_name=$(echo $GITHUB_REF | cut -d'/' -f 3 | tr / -)" >> $GITHUB_ENV
         env:
           IMAGE_NAME: ${{ env.DOCKER_USERNAME }}/${{ github.event.repository.name }}
 
       - name: Deploy to dockerhub
         if: ${{ github.event_name != 'pull_request' }}
+        shell: bash
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin
-          image="$lower_case_image:$branch_name-$project_version"
-          docker build --tag "$image" .
-          docker push "$image"
+          
+          cd src
+          for directory in * ; do
+            tag=$(basename "$directory")
+            image="$lower_case_image:$tag-$(date +%k-%M-%F)"
+            docker build --tag "$image" "$tag"
+            docker push "$image"
+          done
+
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -69,5 +46,5 @@ jobs:
         with:
           destination_container_repo: ${{ env.lower_case_image }}
           provider: dockerhub
-          short_description: "Awesome Microservice"
-          readme_file: "DOCKER_README.md"
+          short_description: "Docker images used to monitor our services"
+          readme_file: "README.md"

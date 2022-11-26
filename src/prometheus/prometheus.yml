@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 15s
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: "codelab-monitor"
+
+scrape_configs:
+  - job_name: "spring-actuator"
+    metrics_path: "/actuator/prometheus"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["{{GATEWAY_HOST}}"]
+    basic_auth:
+      username: "{{USERNAME}}"
+      password: "{{PASSWORD}}"

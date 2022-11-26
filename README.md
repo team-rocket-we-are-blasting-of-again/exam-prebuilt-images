@@ -1,12 +1,8 @@
-# Spring_Rest_Template
+# Awesome Microservice
 
-TO DO:
-  - cucumber
-  - pipeline integration
-  - pmd (mutation tets)
-  - jacoco
-  - pitest
-  - docker integration
-  - logging
-  - flyway
-  - discuss test types amd levels
+## Environment variables
+
+**SERVER_PORT**
+
+- type: number
+- description: Defines the server port the application should run on
