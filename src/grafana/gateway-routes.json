@@ -1,0 +1,13 @@
+[
+  {
+    "requestPath": "/monitor/**",
+    "forwardUri": "http://grafana:3000",
+    "routePathDto": [
+      {
+        "path": "/monitor/**",
+        "method": "NONE",
+        "rolesAllowed": []
+      }
+    ]
+  }
+]
