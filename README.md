@@ -50,6 +50,8 @@ This enables all actuator paths.
 
 **Disclaimer** this security is only required if your service is an external service that we expose to the outside.
 
+**If your external service does not currently have security implemented, please visit [follow this guide](https://github.com/team-rocket-we-are-blasting-of-again/exam-gateway-subscription)**
+
 Because these metrics are quite sensitive, we have to secure them. Prometheus allows us to use basic authentication for this.
 
 The authorization method has to be BASIC, because we only want our own internal login to work for these endpoints, and no external roles should be allowed to use them.
