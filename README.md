@@ -50,7 +50,7 @@ This enables all actuator paths.
 
 Because these metrics are quite sensitive, we have to secure them. Prometheus allows us to use basic authentication for this.
 
-The authorization method has to be BEARER, because we only want our own internal login to work for these endpoints, and no external roles should be allowed to use them.
+The authorization method has to be BASIC, because we only want our own internal login to work for these endpoints, and no external roles should be allowed to use them.
 
 We need to configure your `gateway-routes.json` so that all the actuator endpoints can be authenticated using basic authentication.
 
