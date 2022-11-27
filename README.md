@@ -89,7 +89,7 @@ Add the service to the list of hosts in the prometheus kubernetes deployment wha
 
 [GitOps Repository](https://github.com/team-rocket-we-are-blasting-of-again/exam-gitops)
 
-environments/{test|staging|prod}/monitoring.tf
+environments/{test|staging|prod}/service-monitoring.tf
 
 ```terraform
 resource "kubernetes_deployment" "prometheus" {
