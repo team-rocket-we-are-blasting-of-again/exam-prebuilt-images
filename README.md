@@ -7,7 +7,7 @@ This repository contains the images required for monitoring specific services. E
 We want to monitor how the specific services are doing, such as cpu usage.
 For this we use prometheus to store all the metrics about our services, and then create a grafana instance which uses the prometheus data to show the data in a dashboard.
 
-All microservice monitoring can be found at `https://api.jplm.dk/monitor` and likewise in staging or test if also deployed
+All microservice monitoring can be found at `https://monitor-services.jplm.dk` and likewise in staging or test if also deployed
 
 ## Guide
 
@@ -16,6 +16,7 @@ This section contains all the information required for you to add your service t
 ### Dependencies
 
 pom.xml
+
 ```xml
 <dependencies>
 	<dependency>
@@ -38,6 +39,7 @@ The micrometer-registry-prometheus dependencies adds one more endpoint `/actuato
 Almost no configuration is, since Spring does most of the heavy lifting.
 
 application.properties
+
 ```properties
 management.endpoints.web.exposure.include=*
 ```
@@ -55,6 +57,7 @@ The authorization method has to be BASIC, because we only want our own internal 
 We need to configure your `gateway-routes.json` so that all the actuator endpoints can be authenticated using basic authentication.
 
 Example new config
+
 ```json
 [
   {
@@ -87,7 +90,8 @@ Add the service to the list of hosts in the prometheus kubernetes deployment wha
 [GitOps Repository](https://github.com/team-rocket-we-are-blasting-of-again/exam-gitops)
 
 environments/{test|staging|prod}/monitoring.tf
-```terraform  
+
+```terraform
 resource "kubernetes_deployment" "prometheus" {
   # ...
   env {
@@ -95,8 +99,7 @@ resource "kubernetes_deployment" "prometheus" {
     value = gateway:8080,your-deployed-service:PORT
   }
   # ...
-}  
-``` 
+}
+```
 
 Make sure that there are no spaces between the commas and the services, because that would break the starting of the service.
-
