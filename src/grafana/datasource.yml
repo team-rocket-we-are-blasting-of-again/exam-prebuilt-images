@@ -4,12 +4,12 @@ datasources:
   - name: prometheus
     type: prometheus
     url: http://prometheus:9090
-    isdefault: true
+    isdefault: false
     access: proxy
     editable: true
   - name: loki
     type: loki
     url: http://loki-stack.devops.svc.cluster.local:3100
-    isdefault: false
+    isdefault: true
     access: proxy
     editable: true
