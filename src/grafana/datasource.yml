@@ -1,9 +1,15 @@
 apiVersion: 1
 
 datasources:
-  - name: Prometheus
+  - name: prometheus
     type: prometheus
     url: http://prometheus:9090
-    isDefault: true
+    isdefault: true
+    access: proxy
+    editable: true
+  - name: loki
+    type: loki
+    url: http://loki-stack.devops.svc.cluster.local:3100
+    isdefault: false
     access: proxy
     editable: true
