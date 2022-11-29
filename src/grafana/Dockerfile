@@ -1,4 +1,4 @@
-FROM grafana/grafana:7.1.0
+FROM grafana/grafana:8.3.5
 
 COPY datasource.yml /etc/grafana/provisioning/datasources/datasource.yml
 COPY dashboard.yml /etc/grafana/provisioning/dashboards/default.yml
