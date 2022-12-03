@@ -1,8 +1,12 @@
-# Microservice Monitoring
+# Prebuilt Images
 
-This repository contains the images required for monitoring specific services. Each service has to emit prometheus data, which these containers would then listen on.
+This repository contains a collection of images used for our project, it contains integration specific things such as a kafka connect image, as well as monitoring solutions such as prometheous and grafana
 
-## About
+## Microservice Monitoring
+
+This section is about the requirements for monitoring specific services. Each service has to emit prometheus data, which these containers would then listen on.
+
+### About
 
 We want to monitor how the specific services are doing, such as cpu usage.
 For this we use prometheus to store all the metrics about our services, and then create a grafana instance which uses the prometheus data to show the data in a dashboard.
@@ -12,11 +16,11 @@ All monitoring can be found at `https://monitor.jplm.dk`
 - The microservice monitoring can be found in the Services dashboard
 - All logs of our microservices can be found in the Logs dashboard
 
-## Guide
+### Guide
 
 This section contains all the information required for you to add your service to the monitoring.
 
-### Dependencies
+#### Dependencies
 
 pom.xml
 
@@ -37,7 +41,7 @@ Spring boot actuator will enable the ability to send continues data of the appli
 
 The micrometer-registry-prometheus dependencies adds one more endpoint `/actuator/prometheus` which will be the one that out prometheus container subscribes to
 
-### Configuration
+#### Configuration
 
 Almost no configuration is, since Spring does most of the heavy lifting.
 
@@ -49,7 +53,7 @@ management.endpoints.web.exposure.include=*
 
 This enables all actuator paths.
 
-### Securing the endpoints
+#### Securing the endpoints
 
 **Disclaimer** this security is only required if your service is an external service that we expose to the outside.
 
