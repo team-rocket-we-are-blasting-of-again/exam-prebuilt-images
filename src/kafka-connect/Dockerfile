@@ -8,4 +8,4 @@ COPY start.sh /start.sh
 ENV BOOTSTRAP_SERVERS kafka:9092
 
 EXPOSE 8083
-CMD [ "/start.sh" ]
+CMD [ "sh", "/start.sh" ]

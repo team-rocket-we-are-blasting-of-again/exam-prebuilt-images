@@ -6,12 +6,6 @@ sed -i "s/{{PASSWORD}}/${PASSWORD}/g" /etc/prometheus/prometheus.yml
 the_hosts=""
 services=$(echo $PROMETHEUS_HOSTS | tr "," "\n")
 for service in $services ; do
-    echo $service
-done
-
-the_hosts=""
-services=$(echo $PROMETHEUS_HOSTS | tr "," "\n")
-for service in $services ; do
     name=$(echo $service | cut -d':' -f 1)
     port=$(echo $service | cut -d':' -f 2)
     the_hosts="$the_hosts\"$name.production.svc.cluster.local:$port\","
