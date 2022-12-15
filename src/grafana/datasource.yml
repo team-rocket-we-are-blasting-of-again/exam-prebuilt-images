@@ -9,7 +9,7 @@ datasources:
     editable: true
   - name: loki
     type: loki
-    url: http://loki-stack.devops.svc.cluster.local:3100
+    url: http://loki-stack:3100
     isdefault: true
     access: proxy
     editable: true
